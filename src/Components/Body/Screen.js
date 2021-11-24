@@ -6,6 +6,7 @@ import {
   BsFillCheckCircleFill,
 } from "react-icons/bs";
 import { app } from "../../Base";
+import MyTaskedBut from "./MyTaskedBut";
 
 const Screen = () => {
   const [data, setData] = useState([]);
@@ -45,12 +46,7 @@ const Screen = () => {
             </Checker>
             <Text>{props.task}</Text>
 
-            <Button>
-              <Icon>
-                {" "}
-                <BsFillCheckCircleFill />
-              </Icon>
-            </Button>
+            <MyTaskedBut myId={props.id} />
           </Card>
         ))}
       </Wrapper>
