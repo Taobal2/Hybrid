@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import {
   BsFillBookmarkCheckFill,
@@ -7,9 +7,12 @@ import {
 } from "react-icons/bs";
 import { app } from "../../Base";
 import MyTaskedBut from "./MyTaskedBut";
+import { AuthContext } from "../Global/AuthProvider";
 
 const Screen = () => {
   const [data, setData] = useState([]);
+
+  const { msg } = useContext(AuthContext);
 
   const getData = async () => {
     await app
@@ -30,6 +33,7 @@ const Screen = () => {
 
   return (
     <Container>
+      {msg}
       <Wrapper>
         {data?.map((props) => (
           <Card key={props.id}>
