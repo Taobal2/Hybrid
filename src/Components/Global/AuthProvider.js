@@ -8,11 +8,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
+      setCurrentUser(user);
       console.log(user);
     });
   }, []);
   return (
-    <AuthContext.Provider value={{ msg: "This is a global state" }}>
+    <AuthContext.Provider
+      value={{ msg: "This is a global state", currentUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

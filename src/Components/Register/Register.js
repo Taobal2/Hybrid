@@ -14,7 +14,22 @@ const Register = () => {
 
   const signUp = async () => {
     try {
-      await app.auth().createUserWithEmailAndPassword(email, password);
+      const userData = await app
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+
+      if (userData) {
+        await app
+          .firestore()
+          .collection("myUserData")
+          .doc(userData.user.uid)
+          .set({
+            userName,
+            email,
+            password,
+            avatar: userName.charAt(0),
+          });
+      }
 
       setUserName("");
       setPassword("");
@@ -29,9 +44,17 @@ const Register = () => {
 
   const signUpWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await app.auth().signInWithPopup(provider);
+    const userData = await app.auth().signInWithPopup(provider);
 
     navigate("/");
+
+    if (userData) {
+      await app.firestore().collection("myUserData").doc().set({
+        userName: userData.user.displayName,
+        email: userData.user.email,
+        avatar: userData.user.photoUrl,
+      });
+    }
   };
 
   return (

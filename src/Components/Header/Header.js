@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { AiFillHome } from "react-icons/ai";
 import { FaTasks } from "react-icons/fa";
 import { FiLogIn } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Global/AuthProvider";
+import { app } from "../../Base";
 
 const Header = () => {
+  const { currentUser } = useContext(AuthContext);
+
+  console.log(currentUser);
+
   return (
     <Container>
       <Wrapper>
@@ -18,22 +24,39 @@ const Header = () => {
             </Icon>
             <Nav>Home</Nav>
           </NavHolder>
-          <NavHolder to="/tasked">
-            <Icon>
-              <FaTasks />
-            </Icon>
-            <Nav>Create a task</Nav>
-          </NavHolder>
+
+          {currentUser ? (
+            <NavHolder to="/tasked">
+              <Icon>
+                <FaTasks />
+              </Icon>
+              <Nav>Create a task</Nav>
+            </NavHolder>
+          ) : null}
         </Navigation>
 
         <Register>
-          <Logo />
-          <NavHolder to="/reg">
-            <Icon>
-              <FiLogIn />
-            </Icon>
-            <Nav>Log in</Nav>
-          </NavHolder>
+          {currentUser ? <Logo /> : null}
+
+          {currentUser ? (
+            <NavHolder1
+              onClick={() => {
+                app.auth().signOut();
+              }}
+            >
+              <Icon>
+                <FiLogIn />
+              </Icon>
+              <Nav>Log out</Nav>
+            </NavHolder1>
+          ) : (
+            <NavHolder to="/reg">
+              <Icon>
+                <FiLogIn />
+              </Icon>
+              <Nav>Log in</Nav>
+            </NavHolder>
+          )}
         </Register>
       </Wrapper>
     </Container>
@@ -51,6 +74,23 @@ const Register = styled.div`
 const Navigation = styled.div`
   display: flex;
   flex: 1;
+`;
+
+const NavHolder1 = styled.div`
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 0 10px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  transition: all 350ms;
+  color: white;
+
+  :hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.6);
+  }
 `;
 
 const NavHolder = styled(Link)`
