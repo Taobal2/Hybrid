@@ -12,18 +12,18 @@ import { AuthContext } from "../Global/AuthProvider";
 const Screen = () => {
   const [data, setData] = useState([]);
 
-  const { msg } = useContext(AuthContext);
+  const value = useContext(AuthContext);
 
   const getData = async () => {
     await app
       .firestore()
       .collection("my task")
       .onSnapshot((snapshot) => {
-        const r = [];
+        const file = [];
         snapshot.forEach((doc) => {
-          r.push({ ...doc.data(), id: doc.id });
+          file.push({ ...doc.data(), id: doc.id });
         });
-        setData(r);
+        setData(file);
       });
   };
 
@@ -33,7 +33,7 @@ const Screen = () => {
 
   return (
     <Container>
-      {msg}
+      {value.msg}
       <Wrapper>
         {data?.map((props) => (
           <Card key={props.id}>
@@ -43,9 +43,7 @@ const Screen = () => {
                   <BsFillBookmarkCheckFill />
                 </Icon>
               ) : (
-                <Icon>
-                  <BsFillBookmarkDashFill />
-                </Icon>
+                <Icon>{<BsFillBookmarkDashFill />}</Icon>
               )}
             </Checker>
             <Text>{props.task}</Text>

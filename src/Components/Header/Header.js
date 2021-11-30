@@ -133,6 +133,7 @@ const Container = styled.div`
   height: 100px;
   background-color: red;
   color: white;
+  position: fixed;
 `;
 
 const Wrapper = styled.div`

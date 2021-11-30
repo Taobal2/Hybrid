@@ -52,7 +52,7 @@ const Register = () => {
       await app.firestore().collection("myUserData").doc().set({
         userName: userData.user.displayName,
         email: userData.user.email,
-        avatar: userData.user.photoUrl,
+        avatar: userData.user.photoURL,
       });
     }
   };

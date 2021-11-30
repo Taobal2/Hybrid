@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import {
-  BsFillBookmarkCheckFill,
-  BsFillBookmarkDashFill,
-  BsFillCheckCircleFill,
-} from "react-icons/bs";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 import { AiOutlineDelete } from "react-icons/ai";
 import { app } from "../../Base";
 
 const MyTaskedBut = ({ myId }) => {
-  console.log(myId);
+  const [toggle, setToggle] = useState(false);
+
+  const onToggle = () => {
+    setToggle(!toggle);
+  };
 
   const getDataUpdate = async (myId) => {
     await app.firestore().collection("my task").doc(myId).update({
@@ -30,8 +30,8 @@ const MyTaskedBut = ({ myId }) => {
       <Icon
         onClick={() => {
           getDataUpdate(myId);
-
-          console.log("am out");
+          onToggle();
+          // console.log("am in");
         }}
       >
         {" "}
@@ -42,7 +42,7 @@ const MyTaskedBut = ({ myId }) => {
         style={{ color: "red" }}
         onClick={() => {
           deleteData(myId);
-          console.log("am in");
+          console.log("am out");
         }}
       >
         {" "}
