@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import firebase from "firebase/compat";
 import { app } from "../../Base";
 import { useNavigate } from "react-router-dom";
 
 const Tasked = () => {
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [task, setTask] = useState("");
+
+  console.log(currentUser);
 
   const postTask = async () => {
     await app.firestore().collection("my task").doc().set({

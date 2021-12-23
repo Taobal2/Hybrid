@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {
   BsFillBookmarkCheckFill,
   BsFillBookmarkDashFill,
-  BsFillCheckCircleFill,
 } from "react-icons/bs";
 import { app } from "../../Base";
 import MyTaskedBut from "./MyTaskedBut";
@@ -57,23 +56,6 @@ const Screen = () => {
 };
 
 export default Screen;
-
-const Button = styled.div`
-  color: green;
-  font-size: 25px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin: 0 10px;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  transition: all 350ms;
-
-  :hover {
-    cursor: pointer;
-    // background-color: rgba(255, 255, 255, 0.6);
-  }
-`;
 
 const Text = styled.div`
   margin-left: 20px;
